@@ -1,0 +1,19 @@
+{
+  "name": "edge-delivery-starter",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@optimizely/edge-delivery": "file:../../lib/optimizely-edge-delivery-0.0.5-dev-3.tgz"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240502.0",
+    "typescript": "^5.0.4",
+    "wrangler": "^3.0.0"
+  }
+}
