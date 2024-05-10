@@ -171,5 +171,7 @@ dist
 .dev.vars
 .wrangler/
 
+.DS_Store
+
 # Intentionally commit zipped library
 !optimizely-edge-delivery*.tgz

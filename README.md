@@ -53,9 +53,11 @@ You can install the Optimizely Edge Delivery SDK in any existing Cloudflare Work
 
 ### Installing the Edge Delivery SDK
 
-To install the Edge Delivery library, download the [optimizely-edge-delivery-0.0.5-dev-3.tgz file](https://github.com/optimizely/web-sdk/raw/mwh/cjs-7847/public-dist/optimizely-edge-delivery-0.0.5-dev-3.tgz), and install using npm:
+To install the Edge Delivery library, download the [optimizely-edge-delivery-0.0.5-dev-4.tgz file](https://github.com/optimizely/edge-delivery/raw/mwh/cjs-7861/streamline-index-ts/optimizely-edge-delivery-0.0.5-dev-4.tgz), and install using npm:
 
-`npm install path/to/optimizely-edge-delivery-0.0.5-dev-3.tgz`
+```bash 
+npm install path/to/optimizely-edge-delivery-0.0.5-dev-3.tgz
+```
 
 ### Implementing and executing experiments
 
@@ -79,5 +81,18 @@ The `applyExperiments` method is used to execute experiments. This method uses t
 ```typescript
 import { applyExperiments } from '@optimizely/edge-delivery';
 ...
-await applyExperiments(targetRequest, control.clone(), ctx, options);
+await applyExperiments(request, ctx, options);
+```
+
+#### Other configuration options
+
+Optionally, you may pass a Response object as the control in the `options` parameter. This can be useful if you already have an existing Cloudflare Worker that, for example, makes modifications to the control outside of Optimizely experiments. 
+
+```typescript
+let control = await fetch(request);
+...
+const options = {
+    // Other options
+    "control": control
+};
 ```
