@@ -18,6 +18,9 @@ jobs:
         with:
           node-version: '20'
           registry-url: 'https://npm.pkg.github.com'
+          always-auth: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
       
       - name: Clone Internal Repository
         env:
@@ -34,7 +37,7 @@ jobs:
           bash ./../.github/workflows/scripts/common-build-steps.sh
 
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
           JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
