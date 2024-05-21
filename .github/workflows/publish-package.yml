@@ -20,7 +20,9 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
       
       - name: Clone Internal Repository
-        run: git clone ${{ secrets.REPO_URL }}
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: git clone https://x-access-token:${GH_PAT}@github.com/${{ secrets.GIT_REPO_PATH }}
 
       - name: Build and Publish
         run: |
