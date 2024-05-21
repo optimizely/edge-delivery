@@ -4,9 +4,35 @@ on:
   workflow_dispatch:
 
 jobs:
-  hello_world:
+  build_and_publish:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Hello World
-        run: echo "Hello, World!"
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_PAT }} # TODO - Update GH_PAT secret with Service Account PAT
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://npm.pkg.github.com'
+      
+      - name: Clone Internal Repository
+        run: git clone ${{ secrets.REPO_URL }}
+
+      - name: Build and Publish
+        run: |
+          # TODO - Remove this change directory when library-starter is in the root of the repository
+          echo "[Edge Delivery GHA]: Changing directory to library-starter"
+          cd edge-delivery-internal/library-starter
+          
+          # TODO - Change bash directory when library-starter is in the root of the repository
+          bash ./../.github/workflows/scripts/common-build-steps.sh
+
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
+          JFROG_TOKEN: ${{ secrets.JFROG_TOKEN }}
