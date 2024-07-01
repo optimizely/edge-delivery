@@ -53,10 +53,10 @@ You can install the Optimizely Edge Delivery SDK in any existing Cloudflare Work
 
 ### Installing the Edge Delivery SDK
 
-To install the Edge Delivery library, download the [optimizely-edge-delivery-0.0.5-dev-5.tgz file](https://github.com/optimizely/edge-delivery/raw/main/lib/optimizely-edge-delivery-0.0.5-dev-5.tgz), and install using npm:
+To install the Edge Delivery library, download and install the latest version of the [edge-delivery npm package](https://www.npmjs.com/package/@optimizely/edge-delivery):
 
 ```bash 
-npm install path/to/optimizely-edge-delivery-0.0.5-dev-5.tgz
+npm install @optimizely/edge-delivery@latest
 ```
 
 ### Implementing and executing experiments
