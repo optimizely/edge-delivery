@@ -1,7 +1,7 @@
 {
   "name": "edge-delivery-starter",
+  "license": "Apache-2.0",
   "version": "0.0.0",
-  "private": true,
   "scripts": {
     "deploy": "wrangler deploy",
     "dev": "wrangler dev",
