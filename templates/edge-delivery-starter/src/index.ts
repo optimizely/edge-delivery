@@ -31,6 +31,13 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext) 
         "devUrl": env.DEV_URL,
     };
 
+    const url = new URL(request.url)
+
+    // ED: Exclude /wp-admin and let it go directly to the origin
+    if (url.pathname.startsWith('/wp-admin')) {
+        return fetch(request)
+    }
+
     // Make experiment decisions based on the request information
     // Apply those changes to the control
     // Any decisions or changes that cannot be made here are packaged together 

@@ -1,10 +1,19 @@
 # See https://developers.cloudflare.com/workers/wrangler/configuration/ for more configuration options
 #:schema node_modules/wrangler/config-schema.json
-name = "edge-delivery-starter"
+name = "optimizely-edge-delivery-dc"
 main = "src/index.ts"
-compatibility_date = "2024-05-02"
+compatibility_date = "2024-10-08"
 compatibility_flags = ["nodejs_compat"]
 
+# ED: For CF logging
+[observability]
+enabled = true
+
 [vars]
-SNIPPET_ID = "29061560280"
-DEV_URL = "https://example.com/"
+SNIPPET_ID = "28411280946"
+DEV_URL = "https://demonchronicles.com/"
+
+# ED
+routes = [
+  { pattern = "demonchronicles.com/*", zone_name = "demonchronicles.com" }
+]
