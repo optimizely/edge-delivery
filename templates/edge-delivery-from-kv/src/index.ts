@@ -16,8 +16,9 @@ import { applyExperiments } from '@optimizely/edge-delivery';
 interface Env {
     SNIPPET_ID: string;
     DEV_URL: string;
+    KV_NAMESPACE: KVNamespace;
 }
- 
+
 export default {
     async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
         return await handleRequest(request, env, ctx);
@@ -29,6 +30,7 @@ async function handleRequest(request: Request, env: Env, ctx: ExecutionContext) 
     const options = {
         "snippetId": env.SNIPPET_ID,
         "devUrl": env.DEV_URL,
+        "kvNamespace": env.KV_NAMESPACE
     };
 
     // Make experiment decisions based on the request information
