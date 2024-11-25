@@ -1,0 +1,15 @@
+# See https://developers.cloudflare.com/workers/wrangler/configuration/ for more configuration options
+#:schema node_modules/wrangler/config-schema.json
+name = "edge-delivery-from-kv"
+main = "src/index.ts"
+compatibility_date = "2024-05-02"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+SNIPPET_ID = "21617700362"
+DEV_URL = "https://example.com/"
+
+
+[[kv_namespaces]]
+binding = "EDGE_DELIVERY_CONFIGS"
+id = "d727df952eff4438b17cec97e9853172"
