@@ -9,11 +9,7 @@ compatibility_flags = ["nodejs_compat"]
 [observability]
 enabled = true
 
-[vars]
+[env.dev.vars]
 SNIPPET_ID = "28411280946"
-DEV_URL = "https://demonchronicles.com/"
-
-# ED: still had to create the route manually in CF
-routes = [
-  { pattern = "demonchronicles.com/*", zone_name = "demonchronicles.com" }
-]
+environment = 'prod'
+dev_host = 'https://demonchronicles.com/'

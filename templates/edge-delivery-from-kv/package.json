@@ -3,13 +3,13 @@
   "license": "Apache-2.0",
   "version": "0.0.0",
   "scripts": {
-    "deploy": "wrangler deploy --env prod",
-    "dev": "wrangler dev --env dev",
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
     "start": "wrangler dev",
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@optimizely/edge-delivery": "^0.0.12"
+    "@optimizely/edge-delivery": "^0.0.11"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240502.0",
