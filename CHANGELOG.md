@@ -4,7 +4,7 @@
 ## [1.0.2] - 2025-05-09
 
 ### Features
-- Suppor for new visual editor [ref: #94]
+- Support for new visual editor [ref: #94]
 
 
 ### Fixes
