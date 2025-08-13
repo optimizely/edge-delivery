@@ -1,6 +1,16 @@
 # Changelog
 
 
+## [1.0.3] - 2025-08-13
+
+### Fixes
+- Fixed Ip audiences support [ref: #97]
+- Force passthrought on internal fetch [ref: #99]
+- Fixed tracking issues with GA4 on redirect issues [ref: #1709-CJS, #1701-CJS]
+- Fixed srcset change option [ref: #1700-CJS]
+- Including properties on custom track event payload [ref: #1706-CJS]
+
+
 ## [1.0.2] - 2025-05-09
 
 ### Features
