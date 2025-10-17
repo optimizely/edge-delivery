@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.4] - 2025-10-17
+
+## Features
+- Added monitoring for CMAB integration [ref: #1730-CJS] 
+
+
+### Fixes
+- Fix layer level custom code execution [ref: #102]
+- Fix wrong link changes on new Visual Editor [ref: #1737-CJS]
+- Fix Real Time Segment endpoint fixed to https protocol  [ref: #1745-CJS]
+- Update ShadowDom library support [ref: #1764-CJS]
+
 
 ## [1.0.3] - 2025-08-13
 
