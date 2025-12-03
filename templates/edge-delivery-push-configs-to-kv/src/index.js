@@ -48,6 +48,12 @@ export default {
 				console.log('Request body:', payload);
 				console.log('Request headers:', [...request.headers]);
 
+				// Only process if event is "project.web_sdk_artifact_upload"
+				if (payload.event !== 'project.web_sdk_artifact_upload') {
+					console.log(`Ignoring event: ${payload.event}`);
+					return new Response('Event ignored', { status: 200 });
+				}
+
 				const key = String(payload.project_id);
 				const value = JSON.stringify(payload.data);
 				console.log(`Received key: ${key}, value: ${value}`);
