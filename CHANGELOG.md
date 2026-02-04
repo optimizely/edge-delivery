@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.0.6] - 2026-02-04
+
+### Features
+- Adding `logLevel` option [ref: #117]
+- Bump Optimizely SDK to version 6.3 [ref: #115]
+- Handle KV Update from webhook calls [ref: #114]
+- Improve jQuery loading (when needed) [ref: #113]
+- *beta:* CSP autocompletion new option `fixCSPForOptimizely` [ref: #112]
+
+
+## [1.0.5] - 2025-12-12
+
+### Features
+- Get nonce value from CSP origin response [ref: #104]
+
+### Fixes
+- Remove unknown user agent blockage [ref: #103]
+- Update cookies from the origin response [ref: #105]
+- Fixed filter for redirect change type [ref: #106]
+
+
 ## [1.0.4] - 2025-10-17
 
 ## Features
