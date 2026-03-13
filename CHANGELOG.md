@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.7] - 2026-03-13
+
+### Features
+- Skipping processing of not required responses [ref #126] 
+- *beta:* Added edge delivery own snippet file #124
+
+### Fixes
+- Fix KV key [ref: #121]
+
+
 ## [1.0.6] - 2026-02-04
 
 ### Features
