@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.8] - 2026-03-18
+
+### Fixes
+- Removing unnecessary webhook validation [ref: #122]
+- Change getCeilTime function to use Date.now() instead of performance.now() [ref: #125]
+- Fix missing default [ref: #129]
+
+
 ## [1.0.7] - 2026-03-13
 
 ### Features
