@@ -9,7 +9,7 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@optimizely/edge-delivery": "^1.0.8"
+    "@optimizely/edge-delivery": "^1.0.9"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240502.0",
