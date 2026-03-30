@@ -1,5 +1,14 @@
 # Changelog
 
+
+## [1.0.9] - 2026-03-30
+
+### Fixes
+- Added error handling for cookie parsing errors  [ref: #128]
+- Added error handling for manifest response  [ref: #128]
+- Improve HTMRewriter transform execution  [ref: #128]
+
+
 ## [1.0.8] - 2026-03-18
 
 ### Fixes
