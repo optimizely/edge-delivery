@@ -117,6 +117,8 @@ MUST be invisible to end users.
 | Cloudflare KV | Data Store | Stores experiment datafiles; edge-delivery reads on each request | KV API |
 | Customer browsers | Downstream | Receives modified HTML with experiment variations applied | HTTP response (HTMLRewriter) |
 | client-js | Peer | Runs alongside in browser; edge-delivery handles initial render, client-js handles dynamic interactions | Shared datafile format |
+| edge-injector | Peer | Both are Cloudflare Workers that can modify the same customer page. edge-injector injects the snippet, edge-delivery applies experiment variations via HTMLRewriter. They may operate in sequence on the same response. | Cloudflare Workers (same request pipeline) |
+| edge-services | Peer | Edge experiment bucketing and microsnippet delivery service. Operates alongside edge-delivery in the edge delivery pipeline. | Cloudflare Workers |
 | javascript-sdk | Reference | Canonical bucketing algorithm; edge-delivery bucketing MUST match | Algorithm parity (no runtime dependency) |
 
 ## Known System Behaviors
@@ -132,6 +134,13 @@ MUST be invisible to end users.
    Transformations must work with partial document context.
 4. **Worker CPU limits are per-request** -- 10ms (free) or 50ms (paid) of CPU time.
    This is wall-clock CPU, not elapsed time. Waiting on KV reads does not count.
+5. **edge-delivery + edge-injector coexistence** -- Both Workers may operate on the
+   same customer response in sequence. edge-injector injects the Optimizely snippet
+   into the `<head>`, and edge-delivery applies experiment variation changes via
+   HTMLRewriter. Changes to either Worker's HTML manipulation must consider the
+   other's presence: edge-delivery's HTMLRewriter transforms should not interfere
+   with the injected snippet, and edge-injector should not duplicate-detect
+   edge-delivery's modifications as existing snippets.
 
 ## Governance
 
