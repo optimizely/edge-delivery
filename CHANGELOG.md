@@ -1,7 +1,17 @@
 # Changelog
 
+## [1.0.11] - 2026-05-12
 
-## [1.0.10] - 2026-03-30
+### Feature
+- Add onUrlChange and persistHtml to snippet utils.  [ref: #1819-CJS]
+- Use SendBeacon for all Decisions in Redirect Experiment [ref: #1826-CJS]
+
+### Fixes
+
+- Avoid duplicate calls to fetch by [ref: #139]
+- Cleanup mutation observers for shadow-enabled builds [ref: #1838-CJS]
+
+## [1.0.10] - 2026-04-13
 
 ### Fixes
 - Fix for invalid css selectors [ref: #132]
