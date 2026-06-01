@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.12] - 2026-05-21
+
+### Fixes
+- Fix opt-out strategy. [ref: #142]
+
+### Chore
+- Remove internal private dependency. [ref: #131]
+
 ## [1.0.11] - 2026-05-12
 
 ### Feature
@@ -7,7 +15,6 @@
 - Use SendBeacon for all Decisions in Redirect Experiment [ref: #1826-CJS]
 
 ### Fixes
-
 - Avoid duplicate calls to fetch by [ref: #139]
 - Cleanup mutation observers for shadow-enabled builds [ref: #1838-CJS]
 
