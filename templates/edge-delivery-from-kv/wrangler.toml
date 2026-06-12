@@ -2,14 +2,28 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "edge-delivery-from-kv"
 main = "src/index.ts"
-compatibility_date = "2024-05-02"
+compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat"]
 
-[vars]
+# Local development environment: `npm run dev`
+[env.dev.vars]
 SNIPPET_ID = "21617700362"
-DEV_URL = "https://example.com/"
+environment = "dev"
+dev_host = "example.com"
 
-
-[[kv_namespaces]]
+# Named environments do not inherit top-level bindings, so each environment
+# declares its own KV namespace binding.
+[[env.dev.kv_namespaces]]
 binding = "EDGE_DELIVERY_CONFIGS"
-id = "d727df952eff4438b17cec97e9853172"
+# For local `wrangler dev` the KV store is simulated, so this id is only a placeholder.
+id = "<YOUR_KV_NAMESPACE_ID>"
+
+# Production environment: `npm run deploy`
+[env.prod.vars]
+SNIPPET_ID = "21617700362"
+environment = "prod"
+
+[[env.prod.kv_namespaces]]
+binding = "EDGE_DELIVERY_CONFIGS"
+# Create one with: wrangler kv namespace create EDGE_DELIVERY_CONFIGS
+id = "<YOUR_KV_NAMESPACE_ID>"

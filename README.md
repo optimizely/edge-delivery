@@ -7,92 +7,77 @@
 
 <hr>
 
-## Prequisites
+This repository contains ready-to-use **Cloudflare Worker templates** for getting started
+with Optimizely Edge Delivery.
 
-- You must have a [Cloudflare Account](https://dash.cloudflare.com/sign-up/workers-and-pages).
-- You must install the [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/).
+> **Looking for the SDK reference?** The `@optimizely/edge-delivery` package — including the
+> full list of configuration options and the `applyExperiments` API — is documented on the
+> [npm package page](https://www.npmjs.com/package/@optimizely/edge-delivery).
 
-## Quick Start
+## Prerequisites
 
-#TODO: turn this into a cloudflare worker template instead
+- A [Cloudflare account](https://dash.cloudflare.com/sign-up/workers-and-pages).
+- The [Wrangler CLI](https://developers.cloudflare.com/workers/wrangler/).
 
-To get started quickly with a new project:
-1. Clone this repository and navigate to the templates/edge-delivery-starter directory
-    ```bash
-    cd templates/edge-delivery-starter
-    ```
-1. Install requirements 
-    ```bash
-    npm install
-    ```
-1. Run the worker locally
-    ```bash
-    npm run dev 
-    ```
+## Templates
 
-    This will open your worker executing in a browser. This loads the website https://example.com/ and executes an experiment that modifies the `h1` header text on the edge. 
+| Template | Description |
+| --- | --- |
+| [`edge-delivery-starter`](./templates/edge-delivery-starter) | Minimal worker that loads the Edge Delivery config from the Optimizely CDN using your `snippetId`. Start here. |
+| [`edge-delivery-from-kv`](./templates/edge-delivery-from-kv) | Loads the config from a Cloudflare KV namespace instead of the CDN — useful when you push config to KV yourself (e.g. via a webhook). |
 
-1.  Modify the `SNIPPET_ID` and `DEV_URL` environment variables in the in the [wrangler.toml file](./templates/edge-delivery-starter/wrangler.toml). In this project, these are set to an example Optimizely Web Experiment by default. Modify these to your to test an Optimizely Web Experiment against your own website. 
-    - Run `npm run dev` again to test the changes.
-1. Log in to your Cloudflare account using OAuth
-    ```bash
-    wrangler login
-    ``` 
-1. Deploy the worker to your Cloudflare account:
-    ```bash
-    npm run deploy
-    ```
-1. On Cloudflare, add a route for your worker for the target website you want to proxy 
-    - Alternatively, you can do this by [adding a route to the wrangler.toml](https://developers.cloudflare.com/workers/configuration/routing/routes/#set-up-a-route-in-wranglertoml) before running `npm run deploy`.
-1. Navigate to your website in a browser, and see your experiments in action!
+Each template has its own README with configuration and deployment details.
 
+## Quick start
 
-## Implementing in an existing Worker
+```bash
+# 1. Clone this repository and pick a template
+cd templates/edge-delivery-starter
 
-You can install the Optimizely Edge Delivery SDK in any existing Cloudflare Worker, whether you already route your incoming traffic through a Cloudflare Worker, or you'd prefer to start from scratch using Cloudflare's [getting started guide](https://developers.cloudflare.com/workers/get-started/guide/).
+# 2. Install dependencies
+npm install
 
-### Installing the Edge Delivery SDK
+# 3. Run the worker locally
+npm run dev
+```
 
-To install the Edge Delivery library, download and install the latest version of the [edge-delivery npm package](https://www.npmjs.com/package/@optimizely/edge-delivery):
+This loads the target site (`example.com` by default) and executes an example Optimizely
+Web experiment that modifies the page on the edge. Edit the variables in the template's
+`wrangler.toml` to point at your own snippet and site.
 
-```bash 
+To deploy:
+
+```bash
+wrangler login
+npm run deploy
+```
+
+Then add a [route](https://developers.cloudflare.com/workers/configuration/routing/routes/)
+for your worker on the website you want to run experiments on, and visit it in a browser to
+see your experiments in action.
+
+## Using the SDK in an existing Worker
+
+You can also install the SDK directly in any existing Cloudflare Worker:
+
+```bash
 npm install @optimizely/edge-delivery@latest
 ```
 
-### Implementing and executing experiments
-
-The SDK requires a Snippet ID (`snippetId`) to know which configuration file to retrieve to execute your experiments.
-
-#### Basic configuration options
-
-It's recommended to set a Development URL (`devUrl`) for the SDK to use as a target when testing locally or at your worker site directly.
-
-```typescript
-const options = {
-    "snippetId": "29061560280",
-    "devUrl": "https://example.com/"
-};
-```
-
-#### applyExperiments
-
-The `applyExperiments` method is used to execute experiments. This method uses the request information to make experiment bucketing decisions and apply active experiment variations to the control. Any decisions or changes that cannot be made on the edge are packaged together and added to the `<head>` element for execution on the browser.
-
 ```typescript
 import { applyExperiments } from '@optimizely/edge-delivery';
-...
-await applyExperiments(request, ctx, options);
-```
 
-#### Other configuration options
-
-Optionally, you may pass a Response object as the control in the `options` parameter. This can be useful if you already have an existing Cloudflare Worker that, for example, makes modifications to the control outside of Optimizely experiments. 
-
-```typescript
-let control = await fetch(request);
-...
-const options = {
-    // Other options
-    "control": control
+export default {
+    async fetch(request, ctx, env) {
+        const options = {
+            snippetId: env.SNIPPET_ID,
+            environment: 'prod',
+        };
+        return await applyExperiments(request, ctx, options);
+    },
 };
 ```
+
+See the [npm package page](https://www.npmjs.com/package/@optimizely/edge-delivery) for the
+complete list of options (CDN vs. KV config, fallback behavior, snippet injection, caching,
+local development, and more).

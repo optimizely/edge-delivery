@@ -2,13 +2,16 @@
 #:schema node_modules/wrangler/config-schema.json
 name = "edge-delivery-starter"
 main = "src/index.ts"
-compatibility_date = "2024-05-02"
+compatibility_date = "2025-06-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Local development environment: `npm run dev`
 [env.dev.vars]
 SNIPPET_ID = "29061560280"
-environment = 'dev'
-dev_host = 'example.com'
+environment = "dev"
+dev_host = "example.com"
 
+# Production environment: `npm run deploy`
 [env.prod.vars]
-environment = 'prod'
+SNIPPET_ID = "29061560280"
+environment = "prod"
