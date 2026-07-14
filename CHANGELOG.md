@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.0.13] - 2026-07-14
+
+### Features
+- Remove lodash dependency in browser side scripts. [ref: #1864-CJS]
+- Remove es6-promise dependency in browser side scripts. [ref: #1872-CJS]
+- Remove unsecure UUID generator in browser side scripts. [ref: #1865-CJS]
+- Traffic Exclusion fail-open UA/IP pre-dispatch gate. [ref: #1873-CJS]
+
+### Fixes
+- Add Array check to window.optimizely before VE init. [ref: #1867-CJS]
+- Improve pending template application in new VE. [ref: #1885-CJS]
+
+### Fixes
+- Fix opt-out strategy. [ref: #142]
+
+### Chore
+- Improve public readme. [ref: #145]
+
 ## [1.0.12] - 2026-05-21
 
 ### Fixes
