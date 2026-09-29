@@ -1,0 +1,60 @@
+# See https://www.fastly.com/documentation/reference/compute/fastly-toml for more configuration options
+manifest_version = 3
+name = "edge-delivery-fastly-from-kv"
+description = "Optimizely Edge Delivery on Fastly Compute, with the config in a KV Store"
+language = "javascript"
+
+[scripts]
+  build = "npm run build"
+  post_init = "npm install"
+
+# Local development: `npm run dev`
+[local_server]
+
+  # The site you want to run experiments on.
+  [local_server.backends.origin]
+    url = "https://example.com"
+
+  [local_server.config_stores.edge_delivery]
+    format = "inline-toml"
+
+    [local_server.config_stores.edge_delivery.contents]
+      SNIPPET_ID = "21617700362"
+      environment = "dev"
+      dev_host = "example.com"
+
+  # The local KV Store starts with the seed config, keyed by SNIPPET_ID.
+  # Replace src/seed-data.json with your own snippet's config.
+  [[local_server.kv_stores.edge_delivery_configs]]
+    key = "21617700362"
+    file = "src/seed-data.json"
+
+  # Local webhook secret, for testing webhook POSTs with `make webhook-test`.
+  [[local_server.secret_stores.edge_delivery_secrets]]
+    key = "WEBHOOK_SECRET"
+    data = "local-webhook-secret"
+
+# Production: created on the first `npm run deploy`.
+# Change the origin address and snippet before deploying.
+[setup]
+
+  [setup.backends.origin]
+    address = "example.com"
+    port = 443
+    description = "The site you want to run experiments on"
+
+  [setup.config_stores.edge_delivery]
+    description = "Optimizely Edge Delivery settings"
+
+    [setup.config_stores.edge_delivery.items.SNIPPET_ID]
+      value = "21617700362"
+
+    [setup.config_stores.edge_delivery.items.environment]
+      value = "prod"
+
+  [setup.kv_stores.edge_delivery_configs]
+    description = "Edge Delivery configs keyed by snippet ID, kept up to date by the Optimizely webhook"
+
+  # Add WEBHOOK_SECRET after creating the Optimizely webhook: `make secret-set`.
+  [setup.secret_stores.edge_delivery_secrets]
+    description = "Optimizely webhook secret"

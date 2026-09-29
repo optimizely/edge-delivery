@@ -1,0 +1,52 @@
+# This file describes a Fastly Compute package. To learn more visit:
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
+
+authors = []
+description = "Optimizely Edge Delivery on Fastly Compute"
+language = "javascript"
+manifest_version = 3
+name = "edge-delivery-fastly-starter"
+service_id = "cUdAu12liJVLaNA6vUrLWb"
+
+[local_server]
+
+  [local_server.backends]
+
+    [local_server.backends.origin]
+      url = "https://example.com"
+
+  [local_server.config_stores]
+
+    [local_server.config_stores.edge_delivery]
+      format = "inline-toml"
+
+      [local_server.config_stores.edge_delivery.contents]
+        SNIPPET_ID = "29061560280"
+        dev_host = "example.com"
+        environment = "dev"
+
+[scripts]
+  build = "npm run build"
+  post_init = "npm install"
+
+[setup]
+
+  [setup.backends]
+
+    [setup.backends.origin]
+      address = "istiakbinmahmod.github.io"
+      description = "The site you want to run experiments on"
+      port = 443
+
+  [setup.config_stores]
+
+    [setup.config_stores.edge_delivery]
+      description = "Optimizely Edge Delivery settings"
+
+      [setup.config_stores.edge_delivery.items]
+
+        [setup.config_stores.edge_delivery.items.SNIPPET_ID]
+          value = "5905767218282496"
+
+        [setup.config_stores.edge_delivery.items.environment]
+          value = "prod"

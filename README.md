@@ -1,14 +1,14 @@
 <h1 align="center">Optimizely Edge Delivery SDK</h1>
 
 <p align="center">
-  Optimizely Edge Delivery lets you execute Optimizely Web experiments on Cloudflare Workers.
+  Optimizely Edge Delivery lets you execute Optimizely Web experiments on Cloudflare Workers and Fastly Compute.
   <br>
 </p>
 
 <hr>
 
-This repository contains ready-to-use **Cloudflare Worker templates** for getting started
-with Optimizely Edge Delivery.
+This repository contains ready-to-use **Cloudflare Worker** and **Fastly Compute** templates for getting
+started with Optimizely Edge Delivery.
 
 > **Looking for the SDK reference?** The `@optimizely/edge-delivery` package — including the
 > full list of configuration options and the `applyExperiments` API — is documented on the
@@ -25,6 +25,8 @@ with Optimizely Edge Delivery.
 | --- | --- |
 | [`edge-delivery-starter`](./templates/edge-delivery-starter) | Minimal worker that loads the Edge Delivery config from the Optimizely CDN using your `snippetId`. Start here. |
 | [`edge-delivery-from-kv`](./templates/edge-delivery-from-kv) | Loads the config from a Cloudflare KV namespace instead of the CDN — useful when you push config to KV yourself (e.g. via a webhook). |
+| [`edge-delivery-fastly-starter`](./templates/edge-delivery-fastly-starter) | The starter for **Fastly Compute**, using [`@optimizely/edge-delivery-fastly`](https://www.npmjs.com/package/@optimizely/edge-delivery-fastly). Loads the config from the Optimizely CDN. |
+| [`edge-delivery-fastly-from-kv`](./templates/edge-delivery-fastly-from-kv) | **Fastly Compute** version of `edge-delivery-from-kv`: loads the config from a Fastly KV Store, kept up to date by an Optimizely webhook. |
 
 Each template has its own README with configuration and deployment details.
 
