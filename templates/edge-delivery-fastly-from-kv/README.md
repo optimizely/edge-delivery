@@ -27,9 +27,9 @@ This is the Fastly counterpart of the Cloudflare [`edge-delivery-from-kv`](../ed
 
 | Name | Kind | Description |
 | --- | --- | --- |
-| `SNIPPET_ID` | Config Store `edge_delivery` | The snippet to execute. Also the KV key the config is read from and written to. |
-| `environment` | Config Store `edge_delivery` | `'dev'` or `'prod'`. `dev` enables `dev_host`. |
-| `dev_host` | Config Store `edge_delivery` | The host to proxy when developing locally. |
+| `SNIPPET_ID` | Config Store `edge_delivery_kv` | The snippet to execute. Also the KV key the config is read from and written to. |
+| `environment` | Config Store `edge_delivery_kv` | `'dev'` or `'prod'`. `dev` enables `dev_host`. |
+| `dev_host` | Config Store `edge_delivery_kv` | The host to proxy when developing locally. |
 | `edge_delivery_configs` | KV Store | The Edge Delivery config JSON, keyed by `SNIPPET_ID`. |
 | `WEBHOOK_SECRET` | Secret Store `edge_delivery_secrets` | Verifies incoming Optimizely webhooks. Optional; without it, webhook POSTs are rejected. |
 | `origin` | Backend | The site you run experiments on (see the [starter's backend notes](../edge-delivery-fastly-starter/SETUP.md#6-backends)). |

@@ -29,7 +29,7 @@ import { SecretStore } from 'fastly:secret-store';
 addEventListener('fetch', (event) => event.respondWith(handleRequest(event)));
 
 async function handleRequest(event) {
-	const config = new ConfigStore('edge_delivery');
+	const config = new ConfigStore('edge_delivery_kv');
 
 	// With `kvNamespace` set and `DATA` omitted, the SDK loads the config from KV.
 	// `webhookSecret` also lets the SDK handle incoming Optimizely webhook POSTs and

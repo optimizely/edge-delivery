@@ -5,7 +5,7 @@
 # already active (--autoclone). Run `make activate` afterwards to put the changes live.
 
 FASTLY       := npx fastly
-CONFIG_STORE := edge_delivery
+CONFIG_STORE := edge_delivery_kv
 KV_STORE     := edge_delivery_configs
 SECRET_STORE := edge_delivery_secrets
 SERVICE_NAME ?= edge-delivery-fastly-from-kv
@@ -15,8 +15,8 @@ SVC           = --service-id $(SERVICE_ID)
 FILE         ?= src/seed-data.json
 
 # $(call store_id,<config-store|kv-store|secret-store>,<name>): looked up when the recipe runs.
-# `list --json` returns an array (config stores), {data: [...]} (KV, secrets) or null (none yet).
-store_id = $$($(FASTLY) $(1) list --json | node -e 'let s = ""; process.stdin.on("data", d => (s += d)).on("end", () => { const j = JSON.parse(s || "null"); const list = Array.isArray(j) ? j : (j?.data ?? []); process.stdout.write(list.find(x => x.name === process.argv[1])?.id ?? ""); })' $(2))
+# `list --json` returns [{name, id}] (config, secret stores), {Data: [{Name, StoreID}]} (KV) or null (none yet).
+store_id = $$($(FASTLY) $(1) list --json | node -e 'let s = ""; process.stdin.on("data", d => (s += d)).on("end", () => { const j = JSON.parse(s || "null"); const list = Array.isArray(j) ? j : (j?.Data ?? j?.data ?? []); const store = list.find(x => (x.name ?? x.Name) === process.argv[1]); process.stdout.write(store?.id ?? store?.StoreID ?? ""); })' $(2))
 
 .PHONY: help npm-auth install build serve login whoami deploy activate versions logs \
 	create-service backend backends domain domains config-store config-set config-list \
@@ -84,7 +84,7 @@ domain: ## Add a domain: make domain DOMAIN=www.example.com
 domains: ## List domains on the active version
 	$(FASTLY) service domain list $(SVC) --version active
 
-config-store: ## Create the edge_delivery config store and link it to the service
+config-store: ## Create the edge_delivery_kv config store and link it to the service
 	$(FASTLY) config-store create --name $(CONFIG_STORE)
 	$(FASTLY) service resource-link create $(SVC) --version latest --autoclone --resource-id $(call store_id,config-store,$(CONFIG_STORE))
 
@@ -107,7 +107,7 @@ kv-put: ## Upload a config to KV: make kv-put SNIPPET_ID=<id> [FILE=src/seed-dat
 
 kv-get: ## Show the config stored in KV: make kv-get SNIPPET_ID=<id>
 	@test -n "$(SNIPPET_ID)" || { echo "usage: make kv-get SNIPPET_ID=<id>"; exit 1; }
-	$(FASTLY) kv-store-entry describe --store-id $(call store_id,kv-store,$(KV_STORE)) --key $(SNIPPET_ID)
+	$(FASTLY) kv-store-entry get --store-id $(call store_id,kv-store,$(KV_STORE)) --key $(SNIPPET_ID)
 
 kv-list: ## List keys in the KV Store
 	$(FASTLY) kv-store-entry list --store-id $(call store_id,kv-store,$(KV_STORE))
