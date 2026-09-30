@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@fastly/js-compute": "^3.46.0",
-    "@optimizely/edge-delivery-fastly": "0.1.1-sha-a1dc4f0.0"
+    "@optimizely/edge-delivery-fastly": "0.1.1-sha-892f887.0"
   },
   "devDependencies": {
     "@fastly/cli": "^16.1.0"
