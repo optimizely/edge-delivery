@@ -46,7 +46,7 @@ service_id = "nYvv7h4a0kEqT3JUpAq5gh"
   [setup.backends]
 
     [setup.backends.origin]
-      address = "istiakbinmahmod.github.io"
+      address = "optimizely.github.io"
       description = "The site you want to run experiments on"
       port = 443
 
