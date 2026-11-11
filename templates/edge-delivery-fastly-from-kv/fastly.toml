@@ -1,0 +1,74 @@
+# This file describes a Fastly Compute package. To learn more visit:
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
+
+authors = []
+description = "Optimizely Edge Delivery on Fastly Compute, with the config in a KV Store"
+language = "javascript"
+manifest_version = 3
+name = "edge-delivery-fastly-from-kv"
+service_id = "nYvv7h4a0kEqT3JUpAq5gh"
+
+[local_server]
+
+  [local_server.backends]
+
+    [local_server.backends.origin]
+      url = "https://example.com"
+
+  [local_server.config_stores]
+
+    [local_server.config_stores.edge_delivery_kv]
+      format = "inline-toml"
+
+      [local_server.config_stores.edge_delivery_kv.contents]
+        SNIPPET_ID = "21617700362"
+        dev_host = "example.com"
+        environment = "dev"
+
+  [local_server.kv_stores]
+
+    [[local_server.kv_stores.edge_delivery_configs]]
+      file = "src/seed-data.json"
+      key = "21617700362"
+
+  [local_server.secret_stores]
+
+    [[local_server.secret_stores.edge_delivery_secrets]]
+      data = "local-webhook-secret"
+      key = "WEBHOOK_SECRET"
+
+[scripts]
+  build = "npm run build"
+  post_init = "npm install"
+
+[setup]
+
+  [setup.backends]
+
+    [setup.backends.origin]
+      address = "optimizely.github.io"
+      description = "The site you want to run experiments on"
+      port = 443
+
+  [setup.config_stores]
+
+    [setup.config_stores.edge_delivery_kv]
+      description = "Optimizely Edge Delivery settings"
+
+      [setup.config_stores.edge_delivery_kv.items]
+
+        [setup.config_stores.edge_delivery_kv.items.SNIPPET_ID]
+          value = "5905767218282496"
+
+        [setup.config_stores.edge_delivery_kv.items.environment]
+          value = "prod"
+
+  [setup.kv_stores]
+
+    [setup.kv_stores.edge_delivery_configs]
+      description = "Edge Delivery configs keyed by snippet ID, kept up to date by the Optimizely webhook"
+
+  [setup.secret_stores]
+
+    [setup.secret_stores.edge_delivery_secrets]
+      description = "Optimizely webhook secret"
